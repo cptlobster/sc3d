@@ -4,23 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9551f-1156-4d4e-84fe-a0d666dbc3d4" name="Changes" comment="Add gitignore">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala_library_2_13_10_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/sc3d-build.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/sc3d.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sbt.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/scala_compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/build.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/plugins.sbt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/Projector.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/Shape.scala" afterDir="false" />
+    <list default="true" id="1cd9551f-1156-4d4e-84fe-a0d666dbc3d4" name="Changes" comment="Made things a little easier to read">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Projector.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Projector.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Shape.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Shape.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +90,7 @@
       <workItem from="1669230311094" duration="37000" />
       <workItem from="1669499630131" duration="96000" />
       <workItem from="1669606768758" duration="4970000" />
-      <workItem from="1669651215530" duration="2796000" />
+      <workItem from="1669651215530" duration="4503000" />
     </task>
     <task id="LOCAL-00001" summary="Add gitignore">
       <created>1669653939701</created>
@@ -111,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669653939701</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Initial commit">
+      <created>1669654186101</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1669654186101</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,7 +125,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add gitignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add gitignore" />
+    <MESSAGE value="Initial commit" />
+    <MESSAGE value="Made things a little easier to read" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made things a little easier to read" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

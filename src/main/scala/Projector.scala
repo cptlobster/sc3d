@@ -3,20 +3,23 @@ package org.cptlobster
 import scala.math.Pi
 
 class Projector {
-  //var shp: List[Shape] = List(Cube(4), Cube(2), Pyramid(1))
-  var shp: List[Shape] = List(Utah(1))
-  /* var shp: List[Shape] =
-  List(
-    Poly(
-      Array(
-        new Vertex(1, 0, 0),
-        new Vertex(-1, 0, 0)
-      ),
-      List((0, 1))
-    )
-  )*/
+  /*
+   * This is where you add shapes. Simply append them to the list. List of available shapes in `Shape.scala`
+   */
+  var shp: List[Shape] = List(Cube(4), Cube(2), Pyramid(1))
 
   var cam: Camera = Camera()
+  /*
+   * If you so desire, you can move the camera with the following:
+   */
+  cam.pos += new Vertex(0, 0, 15)
+  cam.rot += new Vertex(0, 0, 0)
+  cam.plane += new Vertex(0, 0, 8)
+
+  /*
+   * Almost everything past here is hell. Enter at your own risk.
+   * If you want to control how shapes rotate, jump down to `main.vectors` and edit items in that list.
+   */
 
   def projection: List[ProjectedShape] = {
     shp.map(_.project(cam))
@@ -48,9 +51,12 @@ object Main {
     shape
   }
 
+  /*
+   * Make shapes spin.
+   */
   def vectors: List[(Double, Double, Double)] = List(
-    // (0, Pi / 16, -Pi / 32),
-    // (-Pi / 16, Pi / 32, 0),
+    (0, Pi / 16, -Pi / 32),
+    (-Pi / 16, Pi / 32, 0),
     (0, Pi / 64, 0)
   )
 

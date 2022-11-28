@@ -2,6 +2,19 @@ package org.cptlobster
 
 import scala.math.{Pi, abs, atan2, cos, round, sin}
 
+/*
+ * List of classes:
+ *  - `Vertex`: Base vertex class, a point in 3 dimensional space.
+ *  - `Transformable`: Adds basic transforms to elements.
+ *  - `Camera`: Camera object.
+ *  - `ProjectedShape`: Used for 3D->2D rendering. Probably will be moved to `Projector.scala` at some point.
+ *  - `Shape`: Base case class of all shapes.
+ *  - `Cube`: Pre-mapped points and lines for a cube. `r` controls size.
+ *  - `Pyramid`: Pre-mapped points and lines for a pyramid. `r` controls size.
+ *  - `Sphere`: Experiment with auto-generated points for a sphere. `r` controls radius, `p` controls number of points per axis.
+ *  - `Utah : A certified 3D-modeling classic. `r` controls size.
+ */
+
 
 class Vertex(val x: Double, val y: Double, val z: Double) {
   def asArray: Array[Double] = Array(x, y, z)
@@ -21,9 +34,9 @@ trait Transformable {
   override def toString: String = s"P: $pos; R: $rot"
 }
 
-case class Camera(var p: Vertex = new Vertex(0, 0, 15),
+case class Camera(var p: Vertex = new Vertex(0, 0, 0),
                   var r: Vertex = new Vertex (0, 0, 0),
-                  var plane: Vertex = new Vertex (0, 0, 8)) extends Transformable {
+                  var plane: Vertex = new Vertex (0, 0, 0)) extends Transformable {
   pos = p
   rot = r
 }
