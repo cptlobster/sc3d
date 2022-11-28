@@ -28,14 +28,14 @@ class Vertex(val x: Double, val y: Double, val z: Double) {
 }
 
 trait Transformable {
-  var pos: Vertex = new Vertex(0, 0, 0)
-  var rot: Vertex = new Vertex(0, 0, 0)
-
-  override def toString: String = s"P: $pos; R: $rot"
+  var pos: Vertex = new Vertex(0, 0, 0) // position
+  var rot: Vertex = new Vertex(0, 0, 0) // rotation
+  var scl: Vertex = new Vertex(1, 1, 1) // scale
+  override def toString: String = s"P: $pos; R: $rot; S: $scl"
 }
 
-case class Camera(var p: Vertex = new Vertex(0, 0, 0),
-                  var r: Vertex = new Vertex (0, 0, 0),
+case class Camera(p: Vertex = new Vertex(0, 0, 0),
+                  r: Vertex = new Vertex (0, 0, 0),
                   var plane: Vertex = new Vertex (0, 0, 0)) extends Transformable {
   pos = p
   rot = r
@@ -99,18 +99,13 @@ abstract class Shape extends Transformable {
 
   private def matMult(a1: Array[Vertex], a2: Array[Array[Double]]): Array[Vertex] = {
     val a2t = transformArr(a2)
-
-    val rows = a1.length
-    val trans: Array[Vertex] = Array.ofDim(rows)
-
-    for (i <- 0 until rows) {
-      trans(i) = new Vertex(
-        a1(i).asArray.zip(a2t(0)).map(a => a._1 * a._2).sum,
-        a1(i).asArray.zip(a2t(1)).map(a => a._1 * a._2).sum,
-        a1(i).asArray.zip(a2t(2)).map(a => a._1 * a._2).sum
+    for (i <- a1) yield {
+      new Vertex(
+        i.asArray.zip(a2t(0)).map(a => a._1 * a._2).sum,
+        i.asArray.zip(a2t(1)).map(a => a._1 * a._2).sum,
+        i.asArray.zip(a2t(2)).map(a => a._1 * a._2).sum
       )
     }
-    trans
   }
 
   def translate(a: Array[Vertex], x: Double, y: Double, z: Double): Array[Vertex] = {
@@ -118,22 +113,13 @@ abstract class Shape extends Transformable {
   }
 
   def rotate(a: Array[Vertex], rx: Double, ry: Double, rz: Double): Array[Vertex] = {
-    val rtx: Array[Array[Double]] = Array(
-      Array(1, 0, 0),
-      Array(0, cos(rx), sin(rx)),
-      Array(0, -sin(rx), cos(rx))
+    // https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
+    val rta: Array[Array[Double]] = Array(
+      Array(cos(ry) * cos(rx), (sin(rz) * sin(ry) * cos(rx)) - (cos(rz) * sin(rx)), (cos(rz) * sin(ry) * cos(rx)) + (sin(rz) * sin(rx))),
+      Array(cos(ry) * sin(rx), (sin(rz) * sin(ry) * sin(rx)) + (cos(rz) * cos(rx)), (cos(rz) * sin(ry) * sin(rx)) - (sin(rz) * cos(rx))),
+      Array(-sin(ry), sin(rz) * cos(ry), cos(rz) * cos(ry))
     )
-    val rty: Array[Array[Double]] = Array(
-      Array(cos(ry), 0, -sin(ry)),
-      Array(0, 1, 0),
-      Array(sin(ry), 0, cos(ry))
-    )
-    val rtz: Array[Array[Double]] = Array(
-      Array(cos(rz), sin(rz), 0),
-      Array(-sin(rz), cos(rz), 0),
-      Array(0, 0, 1)
-    )
-    matMult(matMult(matMult(a, rtx), rty), rtz)
+    matMult(a, rta)
   }
 
   def transform: Array[Vertex] = {
