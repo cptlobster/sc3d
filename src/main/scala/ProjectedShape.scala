@@ -18,7 +18,7 @@
 
 package org.cptlobster
 
-import scala.math.round
+import scala.math.{abs, round}
 
 case class ProjectedShape(points: Array[Array[Double]], edges: List[(Int, Int)]) {
   private def drawLine(arr: Array[Array[Boolean]], p1: Array[Int], p2: Array[Int]): Array[Array[Boolean]] = {
@@ -26,20 +26,21 @@ case class ProjectedShape(points: Array[Array[Double]], edges: List[(Int, Int)])
     var ry: Int = p1(1)
     val dx: Double = p2(0) - p1(0)
     val dy: Double = p2(1) - p1(1)
-    def si(mn: Double, md: Double, rv: Double, ri: Double): Int = {
-      val i: Double = ri - (mn/md) * rv
-      round((mn / md) * rv + i).toInt
-    }
-    if (dx != 0 && Math.abs(dy / dx) <= 1) {
+
+    if (dx != 0 && abs(dy / dx) <= 1) {
+      val yi: Double = ry - (dy / dx) * rx
+      def f(xi: Int): Double = (dy / dx) * xi + yi
       while (rx != p2(0)) {
-        val y: Int = si(dy, dx, rx, ry)
+        val y: Int = round(f(rx)).toInt
         if (arr.indices.contains(y)) if (arr(y).indices.contains(rx)) arr(y)(rx) = true
         if (dx >= 0) rx += 1 else rx -= 1
       }
     }
-    else if (dy != 0 && Math.abs(dx / dy) < 1) {
+    else if (dy != 0 && abs(dx / dy) < 1) {
+      val xi: Double = rx - (dx / dy) * ry
+      def f(yi: Int): Double = (dx / dy) * yi + xi
       while (ry != p2(1)) {
-        val x: Int = si(dx, dy, ry, rx)
+        val x: Int = round(f(ry)).toInt
         if (arr.indices.contains(ry)) if (arr(ry).indices.contains(x)) arr(ry)(x) = true
         if (dy >= 0) ry += 1 else ry -= 1
       }

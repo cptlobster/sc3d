@@ -22,7 +22,7 @@ import scala.math.Pi
 
 object Main {
   def rotate_shape(shape: Shape, x: Double, y: Double, z: Double): Shape = {
-    shape.rot = new Vertex(shape.rot.x + x, shape.rot.y + y, shape.rot.z + z)
+    shape.rot += Vertex(x, y, z)
     shape
   }
 

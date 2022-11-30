@@ -24,7 +24,16 @@ class Projector {
   /*
    * This is where you add shapes. Simply append them to the list. List of available shapes in `Shape.scala`
    */
-  var shp: List[Shape] = List(Cube(4), Cube(2), Pyramid(1))
+  // var shp: List[Shape] = List(Cube(4), Cube(2), Pyramid(1))
+  var shp: List[Shape] = List(
+    Poly(
+      Array(
+        Vertex(2, 0, 0),
+        Vertex(-2, 0, 0)
+      ),
+      List((0, 1))
+    )
+  )
 
   var cam: Camera = Camera()
   /*
