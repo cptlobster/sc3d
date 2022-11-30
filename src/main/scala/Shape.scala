@@ -19,10 +19,13 @@
 package org.cptlobster
 
 import scala.math.{Pi, cos, sin}
+import scala.collection.parallel.mutable.ParArray
+import scala.collection.parallel.immutable.ParSeq
+import scala.collection.parallel.CollectionConverters._
 
 abstract class Shape extends Transformable {
-  val points: Array[Vertex]
-  val edges: List[(Int, Int)]
+  val points: ParArray[Vertex]
+  val edges: ParSeq[(Int, Int)]
 
   private def transformArr(a: Array[Array[Double]]): Array[Array[Double]] = {
     val rows = a.length
@@ -38,19 +41,32 @@ abstract class Shape extends Transformable {
   private def matMult(a1: Array[Vertex], a2: Array[Array[Double]]): Array[Vertex] = {
     val a2t = transformArr(a2)
     for (i <- a1) yield {
+      val j: Array[Double] = i.asArray
       Vertex(
-        i.asArray.zip(a2t(0)).map(a => a._1 * a._2).sum,
-        i.asArray.zip(a2t(1)).map(a => a._1 * a._2).sum,
-        i.asArray.zip(a2t(2)).map(a => a._1 * a._2).sum
+        j.zip(a2t(0)).map(a => a._1 * a._2).sum,
+        j.zip(a2t(1)).map(a => a._1 * a._2).sum,
+        j.zip(a2t(2)).map(a => a._1 * a._2).sum
       )
     }
   }
 
-  def translate(a: Array[Vertex], x: Double, y: Double, z: Double): Array[Vertex] = {
+  private def matMult(a1: ParArray[Vertex], a2: Array[Array[Double]]): ParArray[Vertex] = {
+    val a2t = transformArr(a2)
+    for (i <- a1) yield {
+      val j: Array[Double] = i.asArray
+      Vertex(
+        j.zip(a2t(0)).map(a => a._1 * a._2).sum,
+        j.zip(a2t(1)).map(a => a._1 * a._2).sum,
+        j.zip(a2t(2)).map(a => a._1 * a._2).sum
+      )
+    }
+  }
+
+  def translate(a: ParArray[Vertex], x: Double, y: Double, z: Double): ParArray[Vertex] = {
     a.map(v => Vertex(v.x + x, v.y + y, v.z + z))
   }
 
-  def rotate(a: Array[Vertex], rx: Double, ry: Double, rz: Double): Array[Vertex] = {
+  def rotate(a: ParArray[Vertex], rx: Double, ry: Double, rz: Double): ParArray[Vertex] = {
     // https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
     val rta: Array[Array[Double]] = Array(
       Array(cos(ry) * cos(rx), (sin(rz) * sin(ry) * cos(rx)) - (cos(rz) * sin(rx)), (cos(rz) * sin(ry) * cos(rx)) + (sin(rz) * sin(rx))),
@@ -60,7 +76,7 @@ abstract class Shape extends Transformable {
     matMult(a, rta)
   }
 
-  def transform: Array[Vertex] = {
+  def transform: ParArray[Vertex] = {
     val x = this.pos.x
     val y = this.pos.y
     val z = this.pos.z
@@ -74,18 +90,18 @@ abstract class Shape extends Transformable {
     val ex = c.plane.x
     val ey = c.plane.y
     val ez = c.plane.z
-    val adj_pts: Array[Vertex] = translate(transform, -c.pos.x, -c.pos.y, -c.pos.z)
+    val adj_pts: ParArray[Vertex] = translate(transform, -c.pos.x, -c.pos.y, -c.pos.z)
 
     ProjectedShape(adj_pts.map(a => Array(((ez / a.z) * a.x) + ex, ((ez / a.z) * a.y) + ey)), edges)
   }
 }
 
-case class Poly(points: Array[Vertex], edges: List[(Int, Int)]) extends Shape {
+case class Poly(points: ParArray[Vertex], edges: ParSeq[(Int, Int)]) extends Shape {
 
 }
 
 case class Cube(r: Double) extends Shape {
-  override val points: Array[Vertex] = Array(
+  override val points: ParArray[Vertex] = ParArray(
     Vertex(1, 1, 1), // 0, A
     Vertex(-1, 1, 1), // 1, B
     Vertex(1, -1, 1), // 2, C
@@ -95,7 +111,7 @@ case class Cube(r: Double) extends Shape {
     Vertex(-1, -1, 1), // 6, G
     Vertex(-1, -1, -1) // 7, H
   ).map(_ * r)
-  override val edges: List[(Int, Int)] = List(
+  override val edges: ParSeq[(Int, Int)] = ParSeq(
     (0, 1),
     (0, 2),
     (0, 3),
@@ -112,14 +128,14 @@ case class Cube(r: Double) extends Shape {
 }
 
 case class Pyramid(r: Double) extends Shape {
-  override val points: Array[Vertex] = Array(
+  override val points: ParArray[Vertex] = ParArray(
     Vertex(0, 1, 0), // 0
     Vertex(-1, -1, -1), // 1
     Vertex(-1, -1, 1), // 2
     Vertex(1, -1, -1), // 3
     Vertex(1, -1, 1) // 4
   ).map(_ * r)
-  override val edges: List[(Int, Int)] = List(
+  override val edges: ParSeq[(Int, Int)] = ParSeq(
     (0, 1),
     (0, 2),
     (0, 3),
@@ -132,19 +148,19 @@ case class Pyramid(r: Double) extends Shape {
 }
 
 case class Sphere(r: Double, p: Int) extends Shape {
-  override val points: Array[Vertex] = (for (i <- 0 until 2 * p; j <- 0 until p) yield {
+  override val points: ParArray[Vertex] = (for (i <- 0 until 2 * p; j <- 0 until p) yield {
     val a1: Double = i * Pi / p
     val a2: Double = j * Pi / p
     Vertex(sin(a1) * cos(a2), sin(a1) * sin(a2), cos(a1)) * r
-  }).toArray
+  }).toArray.par
 
-  override val edges: List[(Int, Int)] = List()
+  override val edges: ParSeq[(Int, Int)] = ParSeq()
 }
 
 case class Utah(r: Double) extends Shape {
   rot += Vertex(-Pi / 2, 0, 0)
 
-  override val points: Array[Vertex] = Array(
+  override val points: ParArray[Vertex] = ParArray(
     Vertex(1.40000, 0.00000, 2.40000),
     Vertex(1.40000, -0.78400, 2.40000),
     Vertex(0.78000, -1.40000, 2.40000),
@@ -452,5 +468,5 @@ case class Utah(r: Double) extends Shape {
     Vertex(0.79800, -1.42500, 0.00000),
     Vertex(1.42500, -0.79800, 0.00000)
   ).map(_ * r)
-  override val edges: List[(Int, Int)] = List()
+  override val edges: ParSeq[(Int, Int)] = ParSeq()
 }

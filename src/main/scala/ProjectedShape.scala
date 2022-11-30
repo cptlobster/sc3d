@@ -19,9 +19,12 @@
 package org.cptlobster
 
 import scala.math.{abs, round}
+import scala.collection.parallel.mutable.ParArray
+import scala.collection.parallel.immutable.ParSeq
+import scala.collection.parallel.CollectionConverters._
 
-case class ProjectedShape(points: Array[Array[Double]], edges: List[(Int, Int)]) {
-  private def drawLine(arr: Array[Array[Boolean]], p1: Array[Int], p2: Array[Int]): Array[Array[Boolean]] = {
+case class ProjectedShape(points: ParArray[Array[Double]], edges: ParSeq[(Int, Int)]) {
+  private def drawLine(arr: ParArray[ParArray[Boolean]], p1: Array[Int], p2: Array[Int]): ParArray[ParArray[Boolean]] = {
     var rx: Int = p1(0)
     var ry: Int = p1(1)
     val dx: Double = p2(0) - p1(0)
@@ -32,7 +35,7 @@ case class ProjectedShape(points: Array[Array[Double]], edges: List[(Int, Int)])
       def f(xi: Int): Double = (dy / dx) * xi + yi
       while (rx != p2(0)) {
         val y: Int = round(f(rx)).toInt
-        if (arr.indices.contains(y)) if (arr(y).indices.contains(rx)) arr(y)(rx) = true
+        if ((0 until arr.size).contains(y)) if ((0 until arr(y).size).contains(rx)) arr(y)(rx) = true
         if (dx >= 0) rx += 1 else rx -= 1
       }
     }
@@ -41,20 +44,20 @@ case class ProjectedShape(points: Array[Array[Double]], edges: List[(Int, Int)])
       def f(yi: Int): Double = (dx / dy) * yi + xi
       while (ry != p2(1)) {
         val x: Int = round(f(ry)).toInt
-        if (arr.indices.contains(ry)) if (arr(ry).indices.contains(x)) arr(ry)(x) = true
+        if ((0 until arr.size).contains(ry)) if ((0 until arr(ry).size).contains(x)) arr(ry)(x) = true
         if (dy >= 0) ry += 1 else ry -= 1
       }
     }
     arr
   }
 
-  def rasterize(rows: Int, cols: Int, mx: Int, my: Int): Array[Array[Boolean]] = {
-    var arr: Array[Array[Boolean]] = Array.ofDim(rows, cols)
-    val ints: Array[Array[Int]] = points.map(a => Array(round(a(0) * mx).toInt + (cols / 2), round(a(1) * my).toInt + (rows / 2)))
+  def rasterize(rows: Int, cols: Int, mx: Int, my: Int): ParArray[ParArray[Boolean]] = {
+    var arr: ParArray[ParArray[Boolean]] = Array.ofDim[Boolean](rows, cols).par.map(_.par)
+    val ints: ParArray[Array[Int]] = points.map(a => Array(round(a(0) * mx).toInt + (cols / 2), round(a(1) * my).toInt + (rows / 2)))
     for (i <- ints) {
       val x: Int = i(0)
       val y: Int = i(1)
-      if (arr.indices.contains(y)) if (arr(y).indices.contains(x)) arr(y)(x) = true
+      if ((0 until arr.size).contains(y)) if ((0 until arr(y).size).contains(x)) arr(y)(x) = true
     }
     for (i <- edges) { arr = drawLine(arr, ints(i._1), ints(i._2)) }
     arr

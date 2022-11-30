@@ -7,3 +7,5 @@ lazy val root = (project in file("."))
     name := "sc3d",
     idePackagePrefix := Some("org.cptlobster")
   )
+
+libraryDependencies += "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4"

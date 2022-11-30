@@ -18,37 +18,28 @@
 
 package org.cptlobster
 
-import scala.math.Pi
+import scala.collection.parallel.immutable.ParSeq
 
 class Projector {
   /*
    * This is where you add shapes. Simply append them to the list. List of available shapes in `Shape.scala`
    */
-  // var shp: List[Shape] = List(Cube(4), Cube(2), Pyramid(1))
-  var shp: List[Shape] = List(
-    Poly(
-      Array(
-        Vertex(2, 0, 0),
-        Vertex(-2, 0, 0)
-      ),
-      List((0, 1))
-    )
-  )
+  var shp: ParSeq[Shape] = ParSeq(Cube(4), Cube(2), Pyramid(1))
 
   var cam: Camera = Camera()
   /*
    * If you so desire, you can move the camera with the following:
    */
-  cam.pos += new Vertex(0, 0, 15)
-  cam.rot += new Vertex(0, 0, 0)
-  cam.plane += new Vertex(0, 0, 8)
+  cam.pos += Vertex(0, 0, 15)
+  cam.rot += Vertex(0, 0, 0)
+  cam.plane += Vertex(0, 0, 8)
 
   /*
    * Almost everything past here is hell. Enter at your own risk.
    * If you want to control how shapes rotate, jump down to `main.vectors` and edit items in that list.
    */
 
-  def projection: List[ProjectedShape] = {
+  def projection: ParSeq[ProjectedShape] = {
     shp.map(_.project(cam))
   }
 }
