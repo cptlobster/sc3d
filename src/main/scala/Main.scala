@@ -16,13 +16,16 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.cptlobster
+package org.cptlobster.sc3d
+
+import core.Vertex3
+import shapes.Shape
 
 import scala.math.Pi
 
 object Main {
   def rotate_shape(shape: Shape, x: Double, y: Double, z: Double): Shape = {
-    shape.rot += Vertex(x, y, z)
+    shape.rot += Vertex3(x, y, z)
     shape
   }
 

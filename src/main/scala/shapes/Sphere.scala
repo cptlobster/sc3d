@@ -1,5 +1,5 @@
 /*
- *   Scala 3D renderer - shape projector from 3D -> 2D
+ *   Scala 3D renderer - sphere shape case class
  *   Copyright (C) 2022 Dustin Thomas
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -17,33 +17,21 @@
  */
 
 package org.cptlobster.sc3d
-
-import shapes.{Cube, Pyramid, Shape}
+package shapes
 
 import core.Vertex3
 
+import scala.collection.parallel.CollectionConverters._
 import scala.collection.parallel.immutable.ParSeq
+import scala.collection.parallel.mutable.ParArray
+import scala.math.{Pi, cos, sin}
 
-class Projector {
-  /*
-   * This is where you add shapes. Simply append them to the list. List of available shapes in `Shape.scala`
-   */
-  var shp: ParSeq[Shape] = ParSeq(Cube(4), Cube(2), Pyramid(1))
+case class Sphere(r: Double, p: Int) extends Shape {
+  override val points: ParArray[Vertex3[Double]] = (for (i <- 0 until 2 * p; j <- 0 until p) yield {
+    val a1: Double = i * Pi / p
+    val a2: Double = j * Pi / p
+    Vertex3[Double](sin(a1) * cos(a2), sin(a1) * sin(a2), cos(a1)) * r
+  }).toArray.par
 
-  var cam: Camera = Camera()
-  /*
-   * If you so desire, you can move the camera with the following:
-   */
-  cam.pos += Vertex3(0, 0, 15)
-  cam.rot += Vertex3(0, 0, 0)
-  cam.plane += Vertex3(0, 0, 8)
-
-  /*
-   * Almost everything past here is hell. Enter at your own risk.
-   * If you want to control how shapes rotate, jump down to `main.vectors` and edit items in that list.
-   */
-
-  def projection: ParSeq[ProjectedShape] = {
-    shp.map(_.project(cam))
-  }
+  override val edges: ParSeq[(Int, Int)] = ParSeq()
 }

@@ -1,5 +1,5 @@
 /*
- *   Scala 3D renderer - shape projector from 3D -> 2D
+ *   Scala 3D renderer - pyramid shape case class
  *   Copyright (C) 2022 Dustin Thomas
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -17,33 +17,29 @@
  */
 
 package org.cptlobster.sc3d
-
-import shapes.{Cube, Pyramid, Shape}
+package shapes
 
 import core.Vertex3
 
 import scala.collection.parallel.immutable.ParSeq
+import scala.collection.parallel.mutable.ParArray
 
-class Projector {
-  /*
-   * This is where you add shapes. Simply append them to the list. List of available shapes in `Shape.scala`
-   */
-  var shp: ParSeq[Shape] = ParSeq(Cube(4), Cube(2), Pyramid(1))
-
-  var cam: Camera = Camera()
-  /*
-   * If you so desire, you can move the camera with the following:
-   */
-  cam.pos += Vertex3(0, 0, 15)
-  cam.rot += Vertex3(0, 0, 0)
-  cam.plane += Vertex3(0, 0, 8)
-
-  /*
-   * Almost everything past here is hell. Enter at your own risk.
-   * If you want to control how shapes rotate, jump down to `main.vectors` and edit items in that list.
-   */
-
-  def projection: ParSeq[ProjectedShape] = {
-    shp.map(_.project(cam))
-  }
+case class Pyramid(r: Double) extends Shape {
+  override val points: ParArray[Vertex3[Double]] = ParArray(
+    Vertex3(0, 1, 0), // 0
+    Vertex3(-1, -1, -1), // 1
+    Vertex3(-1, -1, 1), // 2
+    Vertex3(1, -1, -1), // 3
+    Vertex3(1, -1, 1) // 4
+  ).map(_ * r)
+  override val edges: ParSeq[(Int, Int)] = ParSeq(
+    (0, 1),
+    (0, 2),
+    (0, 3),
+    (0, 4),
+    (1, 2),
+    (1, 3),
+    (2, 3),
+    (3, 4)
+  )
 }

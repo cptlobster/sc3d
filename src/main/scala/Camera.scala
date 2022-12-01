@@ -16,11 +16,13 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.cptlobster
+package org.cptlobster.sc3d
 
-case class Camera(p: Vertex = Vertex(0, 0, 0),
-                  r: Vertex = Vertex (0, 0, 0),
-                  var plane: Vertex = Vertex (0, 0, 0)) extends Transformable {
+import core.{Transformable, Vertex3}
+
+case class Camera(p: Vertex3[Double] = Vertex3[Double](0, 0, 0),
+                  r: Vertex3[Double] = Vertex3[Double](0, 0, 0),
+                  var plane: Vertex3[Double] = Vertex3[Double](0, 0, 0)) extends Transformable {
   pos = p
   rot = r
 }

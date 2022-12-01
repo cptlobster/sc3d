@@ -1,5 +1,5 @@
 /*
- *   Scala 3D renderer - Base vertex datatype
+ *   Scala 3D renderer - Trait of transformable object
  *   Copyright (C) 2022 Dustin Thomas
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -16,15 +16,14 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.cptlobster
+package org.cptlobster.sc3d
+package core
 
-case class Vertex(val x: Double, val y: Double, val z: Double) {
-  def asArray: Array[Double] = Array(x, y, z)
-  override def toString: String = s"($x, $y, $z)"
-  def + (r : Vertex): Vertex = new Vertex(x + r.x, y + r.y, z + r.z)
-  def - (r : Vertex): Vertex = new Vertex(x - r.x, y - r.y, z - r.z)
-  def * (r : Double): Vertex = new Vertex(x * r, y * r, z * r)
-  def * (r : Vertex): Vertex = new Vertex(x * r.x, y * r.y, z * r.z)
-  def / (r : Double): Vertex = new Vertex(x / r, y / r, z / r)
-  def / (r : Vertex): Vertex = new Vertex(x / r.x, y / r.y, z / r.z)
+trait Transformable {
+  var pos: Vertex3[Double] = Vertex3(0, 0, 0) // position
+  var rot: Vertex3[Double] = Vertex3(0, 0, 0) // rotation
+  var scl: Vertex3[Double] = Vertex3(1, 1, 1) // scale
+  override def toString: String = s"P: $pos; R: $rot; S: $scl"
+  def translate(direction: Vertex3[_ <: Double], magnitude: _ <: Double): Unit = pos += direction * magnitude
+
 }

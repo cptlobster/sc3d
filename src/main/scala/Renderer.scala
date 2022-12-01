@@ -16,7 +16,7 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.cptlobster
+package org.cptlobster.sc3d
 
 import scala.collection.parallel.mutable.ParArray
 import scala.collection.parallel.immutable.ParSeq
