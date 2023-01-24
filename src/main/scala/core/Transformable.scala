@@ -19,11 +19,56 @@
 package org.cptlobster.sc3d
 package core
 
+import scala.math.{cos, sin}
+
 trait Transformable {
   var pos: Vertex3[Double] = Vertex3(0, 0, 0) // position
   var rot: Vertex3[Double] = Vertex3(0, 0, 0) // rotation
   var scl: Vertex3[Double] = Vertex3(1, 1, 1) // scale
   override def toString: String = s"P: $pos; R: $rot; S: $scl"
-  def translate(direction: Vertex3[_ <: Double], magnitude: _ <: Double): Unit = pos += direction * magnitude
+  def translate(direction: Vertex3[Double], magnitude: Double): Unit = pos += direction * magnitude
+  def translate(direction: Vertex3[Double]): Unit = pos += direction
+  def rotate(angle: Vertex3[Double]): Unit = rot += angle
+  private def transformArr(a: Array[Array[Double]]): Array[Array[Double]] = {
+    val rows = a.length
+    val cols = a.head.length
+    val trans: Array[Array[Double]] = Array.ofDim(cols, rows)
 
+    for (i <- 0 until cols; j <- 0 until rows) {
+      trans(i)(j) = a(j)(i)
+    }
+    trans
+  }
+  private def matMult(a1: Vertex3[Double], a2: Array[Array[Double]]): Vertex3[Double] = {
+    val a2t = transformArr(a2)
+    val j: Array[Double] = a1.toArray
+    Vertex3[Double](
+      j.zip(a2t(0)).map(a => a._1 * a._2).sum,
+      j.zip(a2t(1)).map(a => a._1 * a._2).sum,
+      j.zip(a2t(2)).map(a => a._1 * a._2).sum
+    )
+  }
+
+  def rotMat(rx: Double, ry: Double, rz: Double): Array[Array[Double]] = Array(
+    Array(cos(ry) * cos(rx), (sin(rz) * sin(ry) * cos(rx)) - (cos(rz) * sin(rx)), (cos(rz) * sin(ry) * cos(rx)) + (sin(rz) * sin(rx))),
+    Array(cos(ry) * sin(rx), (sin(rz) * sin(ry) * sin(rx)) + (cos(rz) * cos(rx)), (cos(rz) * sin(ry) * sin(rx)) - (sin(rz) * cos(rx))),
+    Array(-sin(ry), sin(rz) * cos(ry), cos(rz) * cos(ry))
+  )
+
+  def rotMat: Array[Array[Double]] = rotMat(this.rot.x, this.rot.y, this.rot.z)
+
+  def rotateAround(position: Vertex3[Double], rotation: Vertex3[Double]): Unit = {
+    val distance: Vertex3[Double] = this.pos - position
+    this.pos - distance
+    val rx = this.rot.x + rotation.x
+    val ry = this.rot.y + rotation.y
+    val rz = this.rot.z + rotation.z
+
+    val rta: Array[Array[Double]] = rotMat(rx, ry, rz)
+    val adjDistance = matMult(distance, rta)
+    this.rot += rotation
+    this.pos += adjDistance
+  }
+  def rotateAround(transformable: Transformable, rotation: Vertex3[Double]): Unit = rotateAround(transformable.pos, rotation)
+  def scale(scale: Vertex3[Double]): Unit = scl += scale
 }

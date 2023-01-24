@@ -23,7 +23,6 @@ import core.{Transformable, Vertex2, Vertex3}
 
 import scala.collection.parallel.immutable.ParSeq
 import scala.collection.parallel.mutable.ParArray
-import scala.math.{cos, sin}
 
 abstract class Shape extends Transformable {
   val points: ParArray[Vertex3[Double]] = ParArray()
@@ -64,17 +63,13 @@ abstract class Shape extends Transformable {
     }
   }
 
-  private def translate(a: ParArray[Vertex3[Double]], x: Double, y: Double, z: Double): ParArray[Vertex3[Double]] = {
+  private def translate_pts(a: ParArray[Vertex3[Double]], x: Double, y: Double, z: Double): ParArray[Vertex3[Double]] = {
     a.map(v => Vertex3(v.x + x, v.y + y, v.z + z))
   }
 
-  private def rotate(a: ParArray[Vertex3[Double]], rx: Double, ry: Double, rz: Double): ParArray[Vertex3[Double]] = {
+  private def rotate_pts(a: ParArray[Vertex3[Double]], rx: Double, ry: Double, rz: Double): ParArray[Vertex3[Double]] = {
     // https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
-    val rta: Array[Array[Double]] = Array(
-      Array(cos(ry) * cos(rx), (sin(rz) * sin(ry) * cos(rx)) - (cos(rz) * sin(rx)), (cos(rz) * sin(ry) * cos(rx)) + (sin(rz) * sin(rx))),
-      Array(cos(ry) * sin(rx), (sin(rz) * sin(ry) * sin(rx)) + (cos(rz) * cos(rx)), (cos(rz) * sin(ry) * sin(rx)) - (sin(rz) * cos(rx))),
-      Array(-sin(ry), sin(rz) * cos(ry), cos(rz) * cos(ry))
-    )
+    val rta: Array[Array[Double]] = rotMat(rx, ry, rz)
     matMult(a, rta)
   }
 
@@ -85,14 +80,14 @@ abstract class Shape extends Transformable {
     val rx = this.rot.x
     val ry = this.rot.y
     val rz = this.rot.z
-    translate(rotate(this.points, rx, ry, rz), x, y, z)
+    translate_pts(rotate_pts(this.points, rx, ry, rz), x, y, z)
   }
 
   def project(c: Camera): ProjectedShape = {
     val ex = c.plane.x
     val ey = c.plane.y
     val ez = c.plane.z
-    val adj_pts: ParArray[Vertex3[Double]] = translate(transform, -c.pos.x, -c.pos.y, -c.pos.z)
+    val adj_pts: ParArray[Vertex3[Double]] = translate_pts(transform, -c.pos.x, -c.pos.y, -c.pos.z)
 
     ProjectedShape(adj_pts.map(a => Vertex2[Double](((ez / a.z) * a.x) + ex, ((ez / a.z) * a.y) + ey)), edges)
   }

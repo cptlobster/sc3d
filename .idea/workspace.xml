@@ -5,27 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1cd9551f-1156-4d4e-84fe-a0d666dbc3d4" name="Changes" comment="Started refactoring, further extending vertex datatypes">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/core/Point.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/core/Vertex2.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/core/Vertex2Int.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/core/Vertex3Int.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/shapes/Cube.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/shapes/Poly.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/shapes/Pyramid.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/shapes/Shape.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/shapes/Sphere.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/sc3d-build.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sc3d-build.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/sc3d.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sc3d.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/core/Angles.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Camera.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Camera.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/ProjectedShape.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/ProjectedShape.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Projector.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Projector.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Renderer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Renderer.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Shape.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/shapes/Utah.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Transformable.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/core/Transformable.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Vertex.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/core/Vertex3.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/core/Transformable.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/core/Transformable.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/shapes/Shape.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/shapes/Shape.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +122,9 @@
       <workItem from="1669849700487" duration="178000" />
       <workItem from="1669850004162" duration="4378000" />
       <workItem from="1669854820529" duration="5611000" />
-      <workItem from="1669866184564" duration="3948000" />
+      <workItem from="1669866184564" duration="5098000" />
+      <workItem from="1670022026817" duration="15000" />
+      <workItem from="1674576826750" duration="541000" />
     </task>
     <task id="LOCAL-00001" summary="Add gitignore">
       <created>1669653939701</created>
@@ -190,7 +175,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669828054945</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Started refactoring, further extending vertex datatypes">
+      <created>1669870434200</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1669870434200</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
