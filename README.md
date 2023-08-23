@@ -2,7 +2,8 @@
 if god is merciful then why does this exist
 
 ## How to use
-[Install SBT](https://www.scala-sbt.org/download.html)
+[Install SBT](https://www.scala-sbt.org/download.html) or use your IDE (IntelliJ will manage SBT for you when you import
+the project, just make sure you download the Scala plugin)
 
 once that's done enter your project directory in a command line and run:
 
@@ -10,10 +11,10 @@ once that's done enter your project directory in a command line and run:
 sbt run
 ```
 
-Currently, all configuration is done in the `Projector.scala` script. I want to change this later.
+~~Currently, all configuration is done in the `Projector.scala` script. I want to change this later.~~
 
 ## Future Improvements
- - Parallelization!
+ - Parallelization! (done)
  - Only render shapes within the camera's view (somehow)
  - Configuration beyond editing Scala files directly (which will hopefully allow us to also change things without
    needing to recompile every time we change something)
