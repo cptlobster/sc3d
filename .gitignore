@@ -89,3 +89,5 @@ project/plugins/project/
 *.class
 *.log
 
+# just get rid of the entire .idea folder man, idc
+.idea
