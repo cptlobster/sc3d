@@ -1,6 +1,6 @@
 /*
  *   Scala 3D renderer - pyramid shape case class
- *   Copyright (C) 2022 Dustin Thomas
+ *   Copyright (C) 2022-2023 Dustin Thomas
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 package dev.cptlobster.sc3d
 package core
 
-import scala.math.max
+import scala.math.{max, pow, sqrt}
 
 class Vertex(val x: Double, val y: Double, val z: Double) extends Point {
   // def as[A]: Vertex[A] = new Vertex[A](this.x.asInstanceOf[A], this.y.asInstanceOf[A], this.z.asInstanceOf[A])
@@ -41,6 +41,13 @@ class Vertex(val x: Double, val y: Double, val z: Double) extends Point {
   def /(r: Vertex): Vertex = new Vertex(x / r.x, y / r.y, z / r.z)
   //def /(r: Vertex[_]): Vertex = this / r.as[Double]
   def /(r: Double): Vertex = this / new Vertex(r, r, r)
+
+  def distance_from(point: Vertex): Double = {
+    val p1: List[Double] = List(this.x, this.y, this.z)
+    val p2: List[Double] = List(point.x, point.y, point.z)
+    val partials: List[Double] = p1.zip(p2).map(x => x._1 + x._2)
+    sqrt(partials.map(x => pow(x, 2)).sum)
+  }
 }
 
 object Vertex {

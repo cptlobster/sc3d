@@ -1,5 +1,5 @@
 /*
- *   Scala 3D renderer - camera object
+ *   Scala 3D renderer - Transform class
  *   Copyright (C) 2022-2023 Dustin Thomas
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -17,12 +17,13 @@
  */
 
 package dev.cptlobster.sc3d
+package core
 
-import core.{Transformable, Vertex}
-
-case class Camera(p: Vertex = Vertex(0, 0, 0),
-                  r: Vertex = Vertex(0, 0, 0),
-                  var plane: Vertex = Vertex(0, 0, 0)) extends Transformable {
-  pos = p
-  rot = r
+case class Transform(position: Vertex, rotation: Vertex, scale: Vertex) {
+  def translate(pos: Vertex): Transform = Transform(position + pos, rotation, scale)
+  def rotate(angle: Vertex): Transform = Transform(position, rotation + angle, scale)
+  def rotate_around(pos: Vertex, angle: Vertex): Transform = {
+    val magnitude = position.distance_from(pos)
+    ???
+  }
 }
