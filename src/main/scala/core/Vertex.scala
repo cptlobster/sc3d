@@ -1,5 +1,5 @@
 /*
- *   Scala 3D renderer - pyramid shape case class
+ *   Scala 3D renderer - Vertex case class
  *   Copyright (C) 2022-2023 Dustin Thomas
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -23,14 +23,14 @@ import scala.math.{max, pow, sqrt}
 
 /** Basic class for performing vector math in a 3-dimensional space.
  *
- * *Note: All instances use [[scala.Double]]s to store values.*
+ * @note All instances use [[scala.Double]]s to store values.
  *
  * @constructor Create a new Vertex point.
  * @param x Location on the x-axis
  * @param y Location on the y-axis
  * @param z Location on the z-axis
  */
-class Vertex(val x: Double, val y: Double, val z: Double) extends Point {
+class Vertex(val x: Double, val y: Double, val z: Double) {
   /** Return this [[dev.cptlobster.sc3d.core.Vertex]] as an [[scala.Array]] of [[scala.Double]]s. */
   def toArray: Array[Double] = Array(x, y, z)
   /** Return this [[dev.cptlobster.sc3d.core.Vertex]] as an [[scala.collection.immutable.Vector]] of [[scala.Double]]s. */
@@ -64,7 +64,7 @@ class Vertex(val x: Double, val y: Double, val z: Double) extends Point {
    * @param angle The angle to rotate this vector's direction by
    * @return The vertex, rotated by the specified angle.
    **/
-  def rotate(angle: Vertex): Unit = ???
+  def rotate(angle: EulerAngle): Vertex = ???
 }
 
 object Vertex {
