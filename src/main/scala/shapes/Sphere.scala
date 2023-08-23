@@ -16,10 +16,10 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.cptlobster.sc3d
+package dev.cptlobster.sc3d
 package shapes
 
-import core.Vertex3
+import core.Vertex
 
 import scala.collection.parallel.CollectionConverters._
 import scala.collection.parallel.immutable.ParSeq
@@ -27,10 +27,11 @@ import scala.collection.parallel.mutable.ParArray
 import scala.math.{Pi, cos, sin}
 
 case class Sphere(r: Double, p: Int) extends Shape {
-  override val points: ParArray[Vertex3[Double]] = (for (i <- 0 until 2 * p; j <- 0 until p) yield {
+  override val points: ParArray[Vertex] = (for (i <- 0 until 2 * p; j <- 0 until p) yield {
+    // create points around the radius of the circle
     val a1: Double = i * Pi / p
     val a2: Double = j * Pi / p
-    Vertex3[Double](sin(a1) * cos(a2), sin(a1) * sin(a2), cos(a1)) * r
+    Vertex(sin(a1) * cos(a2), sin(a1) * sin(a2), cos(a1)) * r
   }).toArray.par
 
   override val edges: ParSeq[(Int, Int)] = ParSeq()

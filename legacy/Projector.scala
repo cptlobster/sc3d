@@ -16,7 +16,7 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.cptlobster.sc3d
+package dev.cptlobster.sc3d
 
 import shapes.{Cube, Pyramid, Shape}
 
@@ -34,9 +34,9 @@ class Projector {
   /*
    * If you so desire, you can move the camera with the following:
    */
-  cam.pos += Vertex3(0, 0, 15)
-  cam.rot += Vertex3(0, 0, 0)
-  cam.plane += Vertex3(0, 0, 8)
+  cam.pos = Vertex(0, 0, 15)
+  cam.rot = Vertex(0, 0, 0)
+  cam.plane = Vertex(0, 0, 8)
 
   /*
    * Almost everything past here is hell. Enter at your own risk.

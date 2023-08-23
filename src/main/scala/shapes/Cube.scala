@@ -16,24 +16,24 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.cptlobster.sc3d
+package dev.cptlobster.sc3d
 package shapes
 
-import core.Vertex3
+import core.Vertex
 
 import scala.collection.parallel.immutable.ParSeq
 import scala.collection.parallel.mutable.ParArray
 
 case class Cube(r: Double) extends Shape {
-  override val points: ParArray[Vertex3[Double]] = ParArray(
-    Vertex3(1, 1, 1), // 0, A
-    Vertex3(-1, 1, 1), // 1, B
-    Vertex3(1, -1, 1), // 2, C
-    Vertex3(1, 1, -1), // 3, D
-    Vertex3(1, -1, -1), // 4, E
-    Vertex3(-1, 1, -1), // 5, F
-    Vertex3(-1, -1, 1), // 6, G
-    Vertex3(-1, -1, -1) // 7, H
+  override val points: ParArray[Vertex] = ParArray(
+    Vertex(1, 1, 1), // 0, A
+    Vertex(-1, 1, 1), // 1, B
+    Vertex(1, -1, 1), // 2, C
+    Vertex(1, 1, -1), // 3, D
+    Vertex(1, -1, -1), // 4, E
+    Vertex(-1, 1, -1), // 5, F
+    Vertex(-1, -1, 1), // 6, G
+    Vertex(-1, -1, -1) // 7, H
   ).map(_ * r)
   override val edges: ParSeq[(Int, Int)] = ParSeq(
     (0, 1),

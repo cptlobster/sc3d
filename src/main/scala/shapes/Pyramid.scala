@@ -16,21 +16,21 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.cptlobster.sc3d
+package dev.cptlobster.sc3d
 package shapes
 
-import core.Vertex3
+import core.Vertex
 
 import scala.collection.parallel.immutable.ParSeq
 import scala.collection.parallel.mutable.ParArray
 
 case class Pyramid(r: Double) extends Shape {
-  override val points: ParArray[Vertex3[Double]] = ParArray(
-    Vertex3(0, 1, 0), // 0
-    Vertex3(-1, -1, -1), // 1
-    Vertex3(-1, -1, 1), // 2
-    Vertex3(1, -1, -1), // 3
-    Vertex3(1, -1, 1) // 4
+  override val points: ParArray[Vertex] = ParArray(
+    Vertex(0, 1, 0), // 0
+    Vertex(-1, -1, -1), // 1
+    Vertex(-1, -1, 1), // 2
+    Vertex(1, -1, -1), // 3
+    Vertex(1, -1, 1) // 4
   ).map(_ * r)
   override val edges: ParSeq[(Int, Int)] = ParSeq(
     (0, 1),

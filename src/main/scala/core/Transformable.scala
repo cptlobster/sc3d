@@ -16,19 +16,20 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.cptlobster.sc3d
+package dev.cptlobster.sc3d
 package core
 
+import core.Vertex
 import scala.math.{cos, sin}
 
 trait Transformable {
-  var pos: Vertex3[Double] = Vertex3(0, 0, 0) // position
-  var rot: Vertex3[Double] = Vertex3(0, 0, 0) // rotation
-  var scl: Vertex3[Double] = Vertex3(1, 1, 1) // scale
+  var pos: Vertex = Vertex(0, 0, 0) // position
+  var rot: Vertex = Vertex(0, 0, 0) // rotation
+  var scl: Vertex = Vertex(1, 1, 1) // scale
   override def toString: String = s"P: $pos; R: $rot; S: $scl"
-  def translate(direction: Vertex3[Double], magnitude: Double): Unit = pos += direction * magnitude
-  def translate(direction: Vertex3[Double]): Unit = pos += direction
-  def rotate(angle: Vertex3[Double]): Unit = rot += angle
+  def translate(direction: Vertex, magnitude: Double): Unit = pos += direction * magnitude
+  def translate(direction: Vertex): Unit = pos += direction
+  def rotate(angle: Vertex): Unit = rot += angle
   private def transformArr(a: Array[Array[Double]]): Array[Array[Double]] = {
     val rows = a.length
     val cols = a.head.length
@@ -39,10 +40,10 @@ trait Transformable {
     }
     trans
   }
-  private def matMult(a1: Vertex3[Double], a2: Array[Array[Double]]): Vertex3[Double] = {
+  private def matMult(a1: Vertex, a2: Array[Array[Double]]): Vertex = {
     val a2t = transformArr(a2)
     val j: Array[Double] = a1.toArray
-    Vertex3[Double](
+    Vertex(
       j.zip(a2t(0)).map(a => a._1 * a._2).sum,
       j.zip(a2t(1)).map(a => a._1 * a._2).sum,
       j.zip(a2t(2)).map(a => a._1 * a._2).sum
@@ -57,8 +58,8 @@ trait Transformable {
 
   def rotMat: Array[Array[Double]] = rotMat(this.rot.x, this.rot.y, this.rot.z)
 
-  def rotateAround(position: Vertex3[Double], rotation: Vertex3[Double]): Unit = {
-    val distance: Vertex3[Double] = this.pos - position
+  def rotateAround(position: Vertex, rotation: Vertex): Unit = {
+    val distance: Vertex = this.pos - position
     this.pos - distance
     val rx = this.rot.x + rotation.x
     val ry = this.rot.y + rotation.y
@@ -69,6 +70,6 @@ trait Transformable {
     this.rot += rotation
     this.pos += adjDistance
   }
-  def rotateAround(transformable: Transformable, rotation: Vertex3[Double]): Unit = rotateAround(transformable.pos, rotation)
-  def scale(scale: Vertex3[Double]): Unit = scl += scale
+  def rotateAround(transformable: Transformable, rotation: Vertex): Unit = rotateAround(transformable.pos, rotation)
+  def scale(scale: Vertex): Unit = scl += scale
 }

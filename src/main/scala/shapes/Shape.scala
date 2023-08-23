@@ -16,16 +16,16 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.cptlobster.sc3d
+package dev.cptlobster.sc3d
 package shapes
 
-import core.{Transformable, Vertex2, Vertex3}
+import core.{Transformable, Vertex}
 
 import scala.collection.parallel.immutable.ParSeq
 import scala.collection.parallel.mutable.ParArray
 
 abstract class Shape extends Transformable {
-  val points: ParArray[Vertex3[Double]] = ParArray()
+  val points: ParArray[Vertex] = ParArray()
   val edges: ParSeq[(Int, Int)] = ParSeq()
 
   private def transformArr(a: Array[Array[Double]]): Array[Array[Double]] = {
@@ -39,11 +39,11 @@ abstract class Shape extends Transformable {
     trans
   }
 
-  private def matMult(a1: Array[Vertex3[Double]], a2: Array[Array[Double]]): Array[Vertex3[Double]] = {
+  private def matMult(a1: Array[Vertex], a2: Array[Array[Double]]): Array[Vertex] = {
     val a2t = transformArr(a2)
     for (i <- a1) yield {
       val j: Array[Double] = i.toArray
-      Vertex3(
+      Vertex(
         j.zip(a2t(0)).map(a => a._1 * a._2).sum,
         j.zip(a2t(1)).map(a => a._1 * a._2).sum,
         j.zip(a2t(2)).map(a => a._1 * a._2).sum
@@ -51,11 +51,11 @@ abstract class Shape extends Transformable {
     }
   }
 
-  private def matMult(a1: ParArray[Vertex3[Double]], a2: Array[Array[Double]]): ParArray[Vertex3[Double]] = {
+  private def matMult(a1: ParArray[Vertex], a2: Array[Array[Double]]): ParArray[Vertex] = {
     val a2t = transformArr(a2)
     for (i <- a1) yield {
       val j: Array[Double] = i.toArray
-      Vertex3(
+      Vertex(
         j.zip(a2t(0)).map(a => a._1 * a._2).sum,
         j.zip(a2t(1)).map(a => a._1 * a._2).sum,
         j.zip(a2t(2)).map(a => a._1 * a._2).sum
@@ -63,17 +63,17 @@ abstract class Shape extends Transformable {
     }
   }
 
-  private def translate_pts(a: ParArray[Vertex3[Double]], x: Double, y: Double, z: Double): ParArray[Vertex3[Double]] = {
-    a.map(v => Vertex3(v.x + x, v.y + y, v.z + z))
+  private def translate_pts(a: ParArray[Vertex], x: Double, y: Double, z: Double): ParArray[Vertex] = {
+    a.map(v => Vertex(v.x + x, v.y + y, v.z + z))
   }
 
-  private def rotate_pts(a: ParArray[Vertex3[Double]], rx: Double, ry: Double, rz: Double): ParArray[Vertex3[Double]] = {
+  private def rotate_pts(a: ParArray[Vertex], rx: Double, ry: Double, rz: Double): ParArray[Vertex] = {
     // https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations
     val rta: Array[Array[Double]] = rotMat(rx, ry, rz)
     matMult(a, rta)
   }
 
-  private def transform: ParArray[Vertex3[Double]] = {
+  private def transform: ParArray[Vertex] = {
     val x = this.pos.x
     val y = this.pos.y
     val z = this.pos.z
@@ -83,12 +83,15 @@ abstract class Shape extends Transformable {
     translate_pts(rotate_pts(this.points, rx, ry, rz), x, y, z)
   }
 
-  def project(c: Camera): ProjectedShape = {
-    val ex = c.plane.x
-    val ey = c.plane.y
-    val ez = c.plane.z
-    val adj_pts: ParArray[Vertex3[Double]] = translate_pts(transform, -c.pos.x, -c.pos.y, -c.pos.z)
+  def on_create(): Unit = {
 
-    ProjectedShape(adj_pts.map(a => Vertex2[Double](((ez / a.z) * a.x) + ex, ((ez / a.z) * a.y) + ey)), edges)
+  }
+
+  def on_update(): Unit = {
+
+  }
+
+  def on_destroy(): Unit = {
+
   }
 }

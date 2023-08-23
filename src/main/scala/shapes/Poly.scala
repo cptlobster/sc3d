@@ -16,14 +16,14 @@
  *   along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package org.cptlobster.sc3d
+package dev.cptlobster.sc3d
 package shapes
 
-import core.Vertex3
+import core.Vertex
 
 import scala.collection.parallel.immutable.ParSeq
 import scala.collection.parallel.mutable.ParArray
 
-case class Poly(override val points: ParArray[Vertex3[Double]], override val edges: ParSeq[(Int, Int)]) extends Shape {
+case class Poly(override val points: ParArray[Vertex], override val edges: ParSeq[(Int, Int)]) extends Shape {
 
 }

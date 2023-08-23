@@ -4,19 +4,43 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1cd9551f-1156-4d4e-84fe-a0d666dbc3d4" name="Changes" comment="Started refactoring, further extending vertex datatypes">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/core/Angles.scala" afterDir="false" />
+    <list default="true" id="5cb1b1c4-8707-4e45-8eaf-8bc77eb704bb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/scala_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/legacy/OldMain.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/legacy/ProjectedShape.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/core/Vertex.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala_library_2_13_10_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala_library_2_13_10_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/sc3d-build.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sc3d-build.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/sc3d.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/sc3d.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/scala_compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/scala_compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/plugins.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/project/plugins.sbt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Camera.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Camera.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/ProjectedShape.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Projector.scala" beforeDir="false" afterPath="$PROJECT_DIR$/legacy/Projector.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Renderer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/legacy/Renderer.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/core/Point.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/core/Point.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/core/Transformable.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/core/Transformable.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/core/TypeSafeNum.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/core/Vertex2.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/core/Vertex2Int.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/core/Vertex3.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/core/Vertex3Int.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/shapes/Cube.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/shapes/Cube.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/shapes/Poly.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/shapes/Poly.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/shapes/Pyramid.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/shapes/Pyramid.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/shapes/Shape.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/shapes/Shape.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/shapes/Sphere.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/shapes/Sphere.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/shapes/Utah.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/shapes/Utah.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="CodeStyleSettingsInfer">
-    <option name="done" value="true" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -36,193 +60,53 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
-  </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
   </component>
-  <component name="ProjectId" id="2Hs8ZAaKrrFaXaFTWUnxp92FgjC" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": -1
+}]]></component>
+  <component name="ProjectId" id="2UMsPLMsn6XyCDZMu7IExfCxrxp" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/fires/dev/sc3d/src/main/scala/core&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;Scala Worksheet&quot;
-    ]
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\fires\dev\sc3d\src\main\scala\core" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="org.cptlobster.sc3d.core" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\fires\dev\sc3d\legacy" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="org.cptlobster.sc3d.Main" />
-      <module name="sc3d" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Main" />
-      </list>
-    </recent_temporary>
+  <component name="ScalaProjectSettings">
+    <option name="scala3DisclaimerShown" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1cd9551f-1156-4d4e-84fe-a0d666dbc3d4" name="Changes" comment="" />
-      <created>1669062486291</created>
+      <changelist id="5cb1b1c4-8707-4e45-8eaf-8bc77eb704bb" name="Changes" comment="" />
+      <created>1692760758861</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1669062486291</updated>
-      <workItem from="1669062488109" duration="10025000" />
-      <workItem from="1669072787029" duration="3439000" />
-      <workItem from="1669083646615" duration="13082000" />
-      <workItem from="1669230311094" duration="37000" />
-      <workItem from="1669499630131" duration="96000" />
-      <workItem from="1669606768758" duration="4970000" />
-      <workItem from="1669651215530" duration="4582000" />
-      <workItem from="1669659087059" duration="461000" />
-      <workItem from="1669673078582" duration="18000" />
-      <workItem from="1669674965427" duration="203000" />
-      <workItem from="1669676257325" duration="2519000" />
-      <workItem from="1669732478628" duration="3215000" />
-      <workItem from="1669747763551" duration="716000" />
-      <workItem from="1669824322021" duration="4265000" />
-      <workItem from="1669837527224" duration="12000" />
-      <workItem from="1669849700487" duration="178000" />
-      <workItem from="1669850004162" duration="4378000" />
-      <workItem from="1669854820529" duration="5611000" />
-      <workItem from="1669866184564" duration="5098000" />
-      <workItem from="1670022026817" duration="15000" />
-      <workItem from="1674576826750" duration="541000" />
+      <updated>1692760758861</updated>
+      <workItem from="1692760759972" duration="1169000" />
     </task>
-    <task id="LOCAL-00001" summary="Add gitignore">
-      <created>1669653939701</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1669653939701</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Initial commit">
-      <created>1669654186101</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1669654186101</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Made things a little easier to read">
-      <created>1669655823227</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1669655823227</updated>
-    </task>
-    <task id="LOCAL-00004" summary="reduced overhead of rotation and matMult functions">
-      <created>1669678678426</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1669678678426</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Added licensing, refactored files">
-      <created>1669748466992</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1669748466992</updated>
-    </task>
-    <task id="LOCAL-00006" summary="fixed bug with lines rendering only horizontally or vertically">
-      <created>1669825712988</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1669825712988</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Converted majority of collections to parallel equivalents">
-      <created>1669828054945</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1669828054945</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Started refactoring, further extending vertex datatypes">
-      <created>1669870434200</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1669870434200</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="UnknownFeatures">
-    <option featureType="com.intellij.fileTypeFactory" implementationName="*.conf" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add gitignore" />
-    <MESSAGE value="Initial commit" />
-    <MESSAGE value="Made things a little easier to read" />
-    <MESSAGE value="reduced overhead of rotation and matMult functions" />
-    <MESSAGE value="Added licensing, refactored files" />
-    <MESSAGE value="fixed bug with lines rendering only horizontally or vertically" />
-    <MESSAGE value="Converted majority of collections to parallel equivalents" />
-    <MESSAGE value="Started refactoring, further extending vertex datatypes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started refactoring, further extending vertex datatypes" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <default-breakpoints>
-        <breakpoint enabled="true" type="java-exception" />
-      </default-breakpoints>
-    </breakpoint-manager>
-    <pin-to-top-manager>
-      <pinned-members>
-        <PinnedItemInfo parentTag="org.cptlobster.ProjectedShape" memberName="edges" />
-      </pinned-members>
-    </pin-to-top-manager>
   </component>
 </project>

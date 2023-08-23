@@ -21,9 +21,28 @@ ThisBuild / version := "0.1.1-SNAPSHOT"
 ThisBuild / scalaVersion := "3.2.1"
 
 lazy val root = (project in file("."))
+  .enablePlugins(JavaAppPackaging)
   .settings(
     name := "sc3d",
-    idePackagePrefix := Some("org.cptlobster.sc3d")
+    idePackagePrefix := Some("dev.cptlobster.sc3d")
   )
+
+libraryDependencies ++= {
+  // LWJGL dependencies go here
+  val version = "3.2.3"
+  val natives = "natives-windows"
+  Seq(
+    "lwjgl",
+    "lwjgl-glfw",
+    "lwjgl-openal",
+    "lwjgl-opengl",
+  ).flatMap {
+    module =>
+      Seq(
+        "org.lwjgl" % module % version,
+        "org.lwjgl" % module % version classifier natives
+      )
+  }
+}
 
 libraryDependencies += "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4"
