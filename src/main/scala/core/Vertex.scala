@@ -58,7 +58,7 @@ class Vertex(val x: Double, val y: Double, val z: Double) {
     val partials: List[Double] = p1.zip(p2).map(x => x._1 + x._2)
     sqrt(partials.map(x => pow(x, 2)).sum)
   }
-  val magnitude: Double = distance_from(Vertex.zero)
+  def magnitude: Double = distance_from(new Vertex(0, 0, 0))
   /** Rotate this [[dev.cptlobster.sc3d.core.Vertex]]'s direction by the specified angle.
    *
    * @param angle The angle to rotate this vector's direction by
