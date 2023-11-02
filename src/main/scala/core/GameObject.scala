@@ -20,7 +20,14 @@ package dev.cptlobster.sc3d
 package core
 
 case class GameObject(transform: Transform, modules: List[Component]) {
-  def on_update: GameObject = {
-    modules.foldLeft(this){ (obj, mod) => mod.on_update(obj) }
-  }
+  /**
+   * Tick this [[GameObject]].
+   * === Explanation ===
+   * Our [[GameObject]] will usually have some [[Component]]s attached to it. Each of these has [[Component.on_update]],
+   * a function that takes a [[GameObject]] and a `delta`, and returns a [[GameObject]]. Because of this design, we can
+   * just chain each [[Component.on_update]], which makes using a [[foldLeft]] ideal.
+   *
+   * @return
+   */
+  def on_update(delta: Double): GameObject = modules.foldLeft(this){ (obj, mod) => mod.on_update(obj, delta) }
 }

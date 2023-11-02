@@ -19,6 +19,21 @@
 package dev.cptlobster.sc3d
 package core
 
+/**
+ * Basically, each [[GameObject]] contains a [[List]] of [[Component]]s, that manipulate [[GameObject]]s in some way.
+ * These [[Component]]s are things like physics controllers, shape renderers, and user-created behavioral scripts.
+ * Any functions that interact with the [[GameObject]] take it as an input and returns it when it's finished.
+ *
+ * This allows for very efficient (and nice looking) implementation where we pass the [[GameObject]] through all of its
+ * components:
+ *
+ * {{{
+ * def on_update(delta: Double): GameObject = modules.foldLeft(this){ (obj, mod) => mod.on_update(obj, delta) }
+ * }}}
+ *
+ * martin odersky would probably kill me for this
+ */
 trait Component {
-  def on_update(source: GameObject): GameObject
+  def on_create(source: GameObject): GameObject
+  def on_update(source: GameObject, delta: Double): GameObject
 }
