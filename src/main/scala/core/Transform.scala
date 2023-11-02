@@ -41,14 +41,14 @@ case class Transform(position: Vertex, rotation: EulerAngle, scale: Vertex) {
   override def toString: String = s"P: $position; R: $rotation; S: $scale"
   /** Add a [[dev.cptlobster.sc3d.core.Vertex]] to the current object position, relative to its angle.
    *
-   * @param pos The amount to change position by.
+   * @param vector The amount to change position by.
    * @return A transformation matrix with the updated position.
    */
   def translate(vector: Vertex): Transform = translate_global(vector.rotate(rotation))
 
   /** Add a [[dev.cptlobster.sc3d.core.Vertex]] to the current object position, relative to world space.
    *
-   * @param pos The amount to change position by.
+   * @param vector The amount to change position by.
    * @return A transformation matrix with the updated position.
    */
   def translate_global(vector: Vertex): Transform = Transform(position + vector, rotation, scale)
@@ -90,8 +90,8 @@ case class Transform(position: Vertex, rotation: EulerAngle, scale: Vertex) {
 
   /** Change the object's angle around a pivot point that is not the center of the object.
    *
-   * @param position The pivot [[dev.cptlobster.sc3d.core.Vertex]].
-   * @param rotation The amount to change rotation by.
+   * @param pivot The pivot [[dev.cptlobster.sc3d.core.Vertex]].
+   * @param angle The amount to change rotation by.
    * @return A transformation matrix with the updated position.
    */
   def rotate_around(pivot: Vertex, angle: EulerAngle): Transform = {
@@ -108,7 +108,7 @@ case class Transform(position: Vertex, rotation: EulerAngle, scale: Vertex) {
   /** Change the object's angle around a pivot point that is not the center of the object.
    *
    * @param transform The [[Transform]] whose position we will use to pivot
-   * @param rotation The amount to change rotation by.
+   * @param angle The amount to change rotation by.
    * @return A transformation matrix with the updated position.
    */
   def rotate_around(transform: Transform, angle: EulerAngle): Transform = rotate_around(transform.position, angle)
