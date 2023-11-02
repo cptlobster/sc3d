@@ -23,6 +23,7 @@ import core.Vertex
 import scala.math.{cos, sin}
 
 trait Transformable {
+  /** = DO NOT USE THIS - IMPURE = */
   var pos: Vertex = Vertex(0, 0, 0) // position
   var rot: Vertex = Vertex(0, 0, 0) // rotation
   var scl: Vertex = Vertex(1, 1, 1) // scale
