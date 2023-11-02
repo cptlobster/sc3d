@@ -19,6 +19,9 @@
 package dev.cptlobster.sc3d
 package core
 
+import scala.annotation.tailrec
+import scala.math.{cos, sin}
+
 /** A class for handling object positioning in 3D space.
  * == Example ==
  * {{{
@@ -35,19 +38,20 @@ package core
  * @param scale The size of the object.
  */
 case class Transform(position: Vertex, rotation: EulerAngle, scale: Vertex) {
+  override def toString: String = s"P: $position; R: $rotation; S: $scale"
   /** Add a [[dev.cptlobster.sc3d.core.Vertex]] to the current object position, relative to its angle.
    *
    * @param pos The amount to change position by.
    * @return A transformation matrix with the updated position.
    */
-  def translate(pos: Vertex): Transform = this.translate_global(pos.rotate(rotation))
+  def translate(vector: Vertex): Transform = translate_global(vector.rotate(rotation))
 
   /** Add a [[dev.cptlobster.sc3d.core.Vertex]] to the current object position, relative to world space.
    *
    * @param pos The amount to change position by.
    * @return A transformation matrix with the updated position.
    */
-  def translate_global(pos: Vertex): Transform = Transform(position + pos, rotation, scale)
+  def translate_global(vector: Vertex): Transform = Transform(position + vector, rotation, scale)
   /** Add a [[dev.cptlobster.sc3d.core.Vertex]] to the current object rotation.
    *
    * @param angle The amount to change rotation by.
@@ -55,14 +59,59 @@ case class Transform(position: Vertex, rotation: EulerAngle, scale: Vertex) {
    */
   def rotate(angle: EulerAngle): Transform = Transform(position, rotation + angle, scale)
 
+  private def transform_array(a: Array[Array[Double]]): Array[Array[Double]] = {
+    val rows = a.length
+    val cols = a.head.length
+    val trans: Array[Array[Double]] = Array.ofDim(cols, rows)
+
+    for (i <- 0 until cols; j <- 0 until rows) {
+      trans(i)(j) = a(j)(i)
+    }
+    trans
+  }
+
+  private def matrix_multiply(a1: Vertex, a2: Array[Array[Double]]): Vertex = {
+    val a2t = transform_array(a2)
+    val j: Array[Double] = a1.toArray
+    Vertex(
+      j.zip(a2t(0)).map(a => a._1 * a._2).sum,
+      j.zip(a2t(1)).map(a => a._1 * a._2).sum,
+      j.zip(a2t(2)).map(a => a._1 * a._2).sum
+    )
+  }
+
+  def rot_mat(rx: Double, ry: Double, rz: Double): Array[Array[Double]] = Array(
+    Array(cos(ry) * cos(rx), (sin(rz) * sin(ry) * cos(rx)) - (cos(rz) * sin(rx)), (cos(rz) * sin(ry) * cos(rx)) + (sin(rz) * sin(rx))),
+    Array(cos(ry) * sin(rx), (sin(rz) * sin(ry) * sin(rx)) + (cos(rz) * cos(rx)), (cos(rz) * sin(ry) * sin(rx)) - (sin(rz) * cos(rx))),
+    Array(-sin(ry), sin(rz) * cos(ry), cos(rz) * cos(ry))
+  )
+
+  def rot_mat: Array[Array[Double]] = rot_mat(rotation.x, rotation.y, rotation.z)
+
   /** Change the object's angle around a pivot point that is not the center of the object.
    *
-   * @param pos The pivot [[dev.cptlobster.sc3d.core.Vertex]].
-   * @param angle The amount to change rotation by.
+   * @param position The pivot [[dev.cptlobster.sc3d.core.Vertex]].
+   * @param rotation The amount to change rotation by.
    * @return A transformation matrix with the updated position.
    */
-  def rotate_around(pos: Vertex, angle: EulerAngle): Transform = {
-    val magnitude = position.distance_from(pos)
-    ???
+  def rotate_around(pivot: Vertex, angle: EulerAngle): Transform = {
+    val translation: Vertex = position - pivot
+    val rx = rotation.x + angle.x
+    val ry = rotation.y + angle.y
+    val rz = rotation.z + angle.z
+
+    val rta: Array[Array[Double]] = rot_mat(rx, ry, rz)
+    val new_vertex = matrix_multiply(translation, rta)
+    Transform(pivot + new_vertex, rotation + angle, scale)
   }
+
+  /** Change the object's angle around a pivot point that is not the center of the object.
+   *
+   * @param transform The [[Transform]] whose position we will use to pivot
+   * @param rotation The amount to change rotation by.
+   * @return A transformation matrix with the updated position.
+   */
+  def rotate_around(transform: Transform, angle: EulerAngle): Transform = rotate_around(transform.position, angle)
+
+  def scale(magnitude: Vertex): Transform = Transform(position, rotation, scale + magnitude)
 }
