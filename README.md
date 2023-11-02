@@ -12,6 +12,7 @@ sbt run
 ```
 
 ~~Currently, all configuration is done in the `Projector.scala` script. I want to change this later.~~
+Currently this does not work. Good luck.
 
 ## Future Improvements
  - Parallelization! (done I guess)
@@ -23,8 +24,7 @@ sbt run
  - GPU rendering (somehow)! (how the \*\*\*\* does LWJGL)
  - Actual user interface!
  - Auto map lines somehow?
- - Figure out how to make this hellscape fall more in line with how functional programming works
- - Add ability to add update functions directly to shapes
+ - eliminate all ~~heretics~~ mutability and side effects
  - add testing (in progress)
 
 idk I mostly BSed the math using wikipedia and a ton of caffeine, if anyone knows how to actually write good code feel
