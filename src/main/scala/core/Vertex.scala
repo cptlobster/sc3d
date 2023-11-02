@@ -31,13 +31,13 @@ import scala.math.{max, pow, sqrt}
  * @param z Location on the z-axis
  */
 class Vertex(val x: Double, val y: Double, val z: Double) {
-  /** Return this [[dev.cptlobster.sc3d.core.Vertex]] as an [[scala.Array]] of [[scala.Double]]s. */
+  /** Return this [[Vertex]] as an [[scala.Array]] of [[scala.Double]]s. */
   def toArray: Array[Double] = Array(x, y, z)
-  /** Return this [[dev.cptlobster.sc3d.core.Vertex]] as an [[scala.collection.immutable.Vector]] of [[scala.Double]]s. */
+  /** Return this [[Vertex]] as an [[scala.collection.immutable.Vector]] of [[scala.Double]]s. */
   def toVector: Vector[Double] = Vector(x, y, z)
-  /** Return this [[dev.cptlobster.sc3d.core.Vertex]] as a [[String]], in format `"(x, y, z)"`. */
+  /** Return this [[Vertex]] as a [[String]], in format `"(x, y, z)"`. */
   override def toString: String = s"($x, $y, $z)"
-  /** Normalize this [[dev.cptlobster.sc3d.core.Vertex]] to a length of 1. This is done by dividing by the largest
+  /** Normalize this [[Vertex]] to a length of 1. This is done by dividing by the largest
    * coordinate value.
    */
   def normalize: Vertex = this / max(max(x, y), z)
@@ -48,7 +48,7 @@ class Vertex(val x: Double, val y: Double, val z: Double) {
   def /(r: Vertex): Vertex = new Vertex(x / r.x, y / r.y, z / r.z)
   def /(r: Double): Vertex = this / new Vertex(r, r, r)
 
-  /** Get the distance between two [[dev.cptlobster.sc3d.core.Vertex]]es.
+  /** Get the distance between two [[Vertex]]es.
    *
    * @param point The second point to get distance between
    * @return The distance between the two points, as a [[scala.Double]]*/
@@ -59,31 +59,32 @@ class Vertex(val x: Double, val y: Double, val z: Double) {
     sqrt(partials.map(x => pow(x, 2)).sum)
   }
   def magnitude: Double = distance_from(new Vertex(0, 0, 0))
-  /** Rotate this [[dev.cptlobster.sc3d.core.Vertex]]'s direction by the specified angle.
+  /** Rotate this [[Vertex]]'s direction by the specified angle.
    *
    * @param angle The angle to rotate this vector's direction by
    * @return The vertex, rotated by the specified angle.
    **/
   def rotate(angle: EulerAngle): Vertex = ???
+  def rotate_around(angle: EulerAngle, pivot: Vertex): Vertex = ???
 }
 
 object Vertex {
   def apply(x: Double, y: Double, z: Double): Vertex = new Vertex(x, y, z)
 
-  /** Create a [[dev.cptlobster.sc3d.core.Vertex]] pointing directly up (positive Y). */
+  /** Create a [[Vertex]] pointing directly up (positive Y). */
   def up: Vertex = new Vertex(0.asInstanceOf[Double], 1.asInstanceOf[Double], 0.asInstanceOf[Double])
-  /** Create a [[dev.cptlobster.sc3d.core.Vertex]] pointing directly down (negative Y). */
+  /** Create a [[Vertex]] pointing directly down (negative Y). */
   def down: Vertex = new Vertex(0.asInstanceOf[Double], (-1).asInstanceOf[Double], 0.asInstanceOf[Double])
-  /** Create a [[dev.cptlobster.sc3d.core.Vertex]] pointing directly left (negative X). */
+  /** Create a [[Vertex]] pointing directly left (negative X). */
   def left: Vertex = new Vertex((-1).asInstanceOf[Double], 0.asInstanceOf[Double], 0.asInstanceOf[Double])
-  /** Create a [[dev.cptlobster.sc3d.core.Vertex]] pointing directly right (positive X). */
+  /** Create a [[Vertex]] pointing directly right (positive X). */
   def right: Vertex = new Vertex(1.asInstanceOf[Double], 0.asInstanceOf[Double], 0.asInstanceOf[Double])
-  /** Create a [[dev.cptlobster.sc3d.core.Vertex]] pointing directly forward (positive Z). */
+  /** Create a [[Vertex]] pointing directly forward (positive Z). */
   def forward: Vertex = new Vertex(0.asInstanceOf[Double], 0.asInstanceOf[Double], 1.asInstanceOf[Double])
-  /** Create a [[dev.cptlobster.sc3d.core.Vertex]] pointing directly backward (negative Z). */
+  /** Create a [[Vertex]] pointing directly backward (negative Z). */
   def back: Vertex = new Vertex(0.asInstanceOf[Double], 0.asInstanceOf[Double], (-1).asInstanceOf[Double])
-  /** Create a [[dev.cptlobster.sc3d.core.Vertex]] with a value of zero. */
+  /** Create a [[Vertex]] with a value of zero. */
   def identity: Vertex = new Vertex(0.asInstanceOf[Double], 0.asInstanceOf[Double], 0.asInstanceOf[Double])
-  /** Create a [[dev.cptlobster.sc3d.core.Vertex]] with a value of zero. */
+  /** Create a [[Vertex]] with a value of zero. */
   def zero: Vertex = Vertex.identity
 }
