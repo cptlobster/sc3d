@@ -1,6 +1,6 @@
 /*
- *   Scala 3D renderer - pyramid shape case class
- *   Copyright (C) 2022 Dustin Thomas
+ *   Scala 3D renderer - common trait for GameObject components
+ *   Copyright (C) 2022-2023 Dustin Thomas
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@
 package dev.cptlobster.sc3d
 package core
 
-trait Point {
-  def toArray: Array[Double]
-  def toString: String
-  def normalize: Point
+trait Component {
+  def on_update(source: GameObject): GameObject
 }
