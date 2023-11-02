@@ -1,5 +1,5 @@
 /*
- *   Scala 3D renderer - pyramid shape case class
+ *   Scala 3D renderer - cube shape case class
  *   Copyright (C) 2022 Dustin Thomas
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -17,29 +17,37 @@
  */
 
 package dev.cptlobster.sc3d
-package shapes
+package shapes.legacy
 
 import core.Vertex
+import shapes.legacy.Shape
 
 import scala.collection.parallel.immutable.ParSeq
 import scala.collection.parallel.mutable.ParArray
 
-case class Pyramid(r: Double) extends Shape {
+case class Cube(r: Double) extends Shape {
   override val points: ParArray[Vertex] = ParArray(
-    Vertex(0, 1, 0), // 0
-    Vertex(-1, -1, -1), // 1
-    Vertex(-1, -1, 1), // 2
-    Vertex(1, -1, -1), // 3
-    Vertex(1, -1, 1) // 4
+    Vertex(1, 1, 1), // 0, A
+    Vertex(-1, 1, 1), // 1, B
+    Vertex(1, -1, 1), // 2, C
+    Vertex(1, 1, -1), // 3, D
+    Vertex(1, -1, -1), // 4, E
+    Vertex(-1, 1, -1), // 5, F
+    Vertex(-1, -1, 1), // 6, G
+    Vertex(-1, -1, -1) // 7, H
   ).map(_ * r)
   override val edges: ParSeq[(Int, Int)] = ParSeq(
     (0, 1),
     (0, 2),
     (0, 3),
-    (0, 4),
-    (1, 2),
-    (1, 3),
-    (2, 3),
-    (3, 4)
+    (1, 5),
+    (1, 6),
+    (2, 4),
+    (2, 6),
+    (3, 4),
+    (3, 5),
+    (4, 7),
+    (5, 7),
+    (6, 7)
   )
 }

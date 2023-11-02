@@ -17,7 +17,7 @@
  */
 
 package dev.cptlobster.sc3d
-package shapes
+package shapes.legacy
 
 import core.Vertex
 

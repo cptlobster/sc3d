@@ -17,13 +17,13 @@
  */
 
 package dev.cptlobster.sc3d
-package shapes
+package shapes.legacy
 
 import core.Vertex
 
 import scala.collection.parallel.immutable.ParSeq
 import scala.collection.parallel.mutable.ParArray
 
-case class Poly(override val points: ParArray[Vertex], override val edges: ParSeq[(Int, Int)]) extends Shape {
+case class CustomShape(override val points: ParArray[Vertex], override val edges: ParSeq[(Int, Int)]) extends Shape {
 
 }

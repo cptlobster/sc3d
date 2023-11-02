@@ -1,5 +1,5 @@
 /*
- *   Scala 3D renderer - sphere shape case class
+ *   Scala 3D renderer - pyramid shape case class
  *   Copyright (C) 2022 Dustin Thomas
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -17,22 +17,29 @@
  */
 
 package dev.cptlobster.sc3d
-package shapes
+package shapes.legacy
 
 import core.Vertex
 
-import scala.collection.parallel.CollectionConverters._
 import scala.collection.parallel.immutable.ParSeq
 import scala.collection.parallel.mutable.ParArray
-import scala.math.{Pi, cos, sin}
 
-case class Sphere(r: Double, p: Int) extends Shape {
-  override val points: ParArray[Vertex] = (for (i <- 0 until 2 * p; j <- 0 until p) yield {
-    // create points around the radius of the circle
-    val a1: Double = i * Pi / p
-    val a2: Double = j * Pi / p
-    Vertex(sin(a1) * cos(a2), sin(a1) * sin(a2), cos(a1)) * r
-  }).toArray.par
-
-  override val edges: ParSeq[(Int, Int)] = ParSeq()
+case class Pyramid(r: Double) extends Shape {
+  override val points: ParArray[Vertex] = ParArray(
+    Vertex(0, 1, 0), // 0
+    Vertex(-1, -1, -1), // 1
+    Vertex(-1, -1, 1), // 2
+    Vertex(1, -1, -1), // 3
+    Vertex(1, -1, 1) // 4
+  ).map(_ * r)
+  override val edges: ParSeq[(Int, Int)] = ParSeq(
+    (0, 1),
+    (0, 2),
+    (0, 3),
+    (0, 4),
+    (1, 2),
+    (1, 3),
+    (2, 3),
+    (3, 4)
+  )
 }

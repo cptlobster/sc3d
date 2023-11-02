@@ -1,5 +1,5 @@
 /*
- *   Scala 3D renderer - cube shape case class
+ *   Scala 3D renderer - sphere shape case class
  *   Copyright (C) 2022 Dustin Thomas
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -17,36 +17,22 @@
  */
 
 package dev.cptlobster.sc3d
-package shapes
+package shapes.legacy
 
 import core.Vertex
 
+import scala.collection.parallel.CollectionConverters.*
 import scala.collection.parallel.immutable.ParSeq
 import scala.collection.parallel.mutable.ParArray
+import scala.math.{Pi, cos, sin}
 
-case class Cube(r: Double) extends Shape {
-  override val points: ParArray[Vertex] = ParArray(
-    Vertex(1, 1, 1), // 0, A
-    Vertex(-1, 1, 1), // 1, B
-    Vertex(1, -1, 1), // 2, C
-    Vertex(1, 1, -1), // 3, D
-    Vertex(1, -1, -1), // 4, E
-    Vertex(-1, 1, -1), // 5, F
-    Vertex(-1, -1, 1), // 6, G
-    Vertex(-1, -1, -1) // 7, H
-  ).map(_ * r)
-  override val edges: ParSeq[(Int, Int)] = ParSeq(
-    (0, 1),
-    (0, 2),
-    (0, 3),
-    (1, 5),
-    (1, 6),
-    (2, 4),
-    (2, 6),
-    (3, 4),
-    (3, 5),
-    (4, 7),
-    (5, 7),
-    (6, 7)
-  )
+case class Sphere(r: Double, p: Int) extends Shape {
+  override val points: ParArray[Vertex] = (for (i <- 0 until 2 * p; j <- 0 until p) yield {
+    // create points around the radius of the circle
+    val a1: Double = i * Pi / p
+    val a2: Double = j * Pi / p
+    Vertex(sin(a1) * cos(a2), sin(a1) * sin(a2), cos(a1)) * r
+  }).toArray.par
+
+  override val edges: ParSeq[(Int, Int)] = ParSeq()
 }
