@@ -72,19 +72,19 @@ object Vertex {
   def apply(x: Double, y: Double, z: Double): Vertex = new Vertex(x, y, z)
 
   /** Create a [[Vertex]] pointing directly up (positive Y). */
-  def up: Vertex = new Vertex(0.asInstanceOf[Double], 1.asInstanceOf[Double], 0.asInstanceOf[Double])
+  def up: Vertex = new Vertex(0d, 1d, 0d)
   /** Create a [[Vertex]] pointing directly down (negative Y). */
-  def down: Vertex = new Vertex(0.asInstanceOf[Double], (-1).asInstanceOf[Double], 0.asInstanceOf[Double])
+  def down: Vertex = new Vertex(0d, -1d, 0d)
   /** Create a [[Vertex]] pointing directly left (negative X). */
-  def left: Vertex = new Vertex((-1).asInstanceOf[Double], 0.asInstanceOf[Double], 0.asInstanceOf[Double])
+  def left: Vertex = new Vertex((-1)d, 0d, 0d)
   /** Create a [[Vertex]] pointing directly right (positive X). */
-  def right: Vertex = new Vertex(1.asInstanceOf[Double], 0.asInstanceOf[Double], 0.asInstanceOf[Double])
+  def right: Vertex = new Vertex(1d, 0d, 0d)
   /** Create a [[Vertex]] pointing directly forward (positive Z). */
-  def forward: Vertex = new Vertex(0.asInstanceOf[Double], 0.asInstanceOf[Double], 1.asInstanceOf[Double])
+  def forward: Vertex = new Vertex(0d, 0d, 1d)
   /** Create a [[Vertex]] pointing directly backward (negative Z). */
-  def back: Vertex = new Vertex(0.asInstanceOf[Double], 0.asInstanceOf[Double], (-1).asInstanceOf[Double])
+  def back: Vertex = new Vertex(0d, 0d, -1d)
   /** Create a [[Vertex]] with a value of zero. */
-  def identity: Vertex = new Vertex(0.asInstanceOf[Double], 0.asInstanceOf[Double], 0.asInstanceOf[Double])
+  def identity: Vertex = new Vertex(0d, 0d, 0d)
   /** Create a [[Vertex]] with a value of zero. */
   def zero: Vertex = Vertex.identity
 }
